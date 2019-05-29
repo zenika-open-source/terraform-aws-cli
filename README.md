@@ -30,7 +30,7 @@ This image gives you the flexibility to be used for development or as a base ima
 Tools included:
 
 * [AWS CLI](https://aws.amazon.com/fr/cli/), see available version on the [pip repository](https://pypi.org/project/awscli/#history)
-* [Terraform CLI](https://www.terraform.io/), see available versions on the [project release page](https://github.com/hashicorp/terraform/releases)
+* [Terraform CLI](https://www.terraform.io/docs/commands/index.html), see available versions on the [project release page](https://github.com/hashicorp/terraform/releases)
 
 ## Usage
 
