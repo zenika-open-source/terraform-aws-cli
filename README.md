@@ -36,6 +36,7 @@ Tools included:
 
 ### Launch the CLI
 Simply launch the container and use the CLI as you would on any other platform, for instance using the latest *alpine* based image:
+
 ```bash
 docker container run -it --rm -v ${PWD}:/workspace zenika/terraform-aws-cli:latest
 ```
@@ -57,14 +58,14 @@ Optionally, it is possible to choose the tools desired versions using [Docker bu
 
 ```bash
 # Set tools desired versions
-AZURE_CLI_VERSION=1.16.166
+AWS_CLI_VERSION=1.16.166
 TERRAFORM_VERSION=0.12.0
 
 # Build the Debian based image:
-docker image build --build-arg AZURE_CLI_VERSION=$AZURE_CLI_VERSION --build-arg TERRAFORM_VERSION=$TERRAFORM_VERSION -f debian.Dockerfile -t zenika/terraform-aws-cli:debian .
+docker image build --build-arg AWS_CLI_VERSION=$AWS_CLI_VERSION --build-arg TERRAFORM_VERSION=$TERRAFORM_VERSION -f debian.Dockerfile -t zenika/terraform-aws-cli:debian .
 
 # Build the Alpine based image:
-docker image build --build-arg AZURE_CLI_VERSION=$AZURE_CLI_VERSION --build-arg TERRAFORM_VERSION=$TERRAFORM_VERSION -f alpine.Dockerfile -t zenika/terraform-aws-cli:alpine .
+docker image build --build-arg AWS_CLI_VERSION=$AWS_CLI_VERSION --build-arg TERRAFORM_VERSION=$TERRAFORM_VERSION -f alpine.Dockerfile -t zenika/terraform-aws-cli:alpine .
 ```
 
 ## Contributions
