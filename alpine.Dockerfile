@@ -29,7 +29,12 @@ RUN pip3 install awscli==${AWS_CLI_VERSION}
 
 # Build final image
 FROM alpine:3.9.4
-RUN apk --no-cache add python3=3.6.8-r2 bash=4.4.19-r1 groff=1.22.3-r2 ca-certificates=20190108-r0 \
+RUN apk --no-cache add \
+  bash=4.4.19-r1 \
+  ca-certificates=20190108-r0 \
+  groff=1.22.3-r2 \
+  jq=1.6-r0 \
+  python3=3.6.8-r2 \
   && ln -s /usr/bin/python3 /usr/bin/python
 COPY --from=terraform /terraform /usr/bin/terraform
 COPY --from=aws-cli /usr/bin/aws* /usr/bin/

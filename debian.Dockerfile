@@ -28,9 +28,11 @@ RUN pip3 install awscli==${AWS_CLI_VERSION}
 
 # Build final image
 FROM debian:stretch-20190506-slim
-RUN apt-get update --no-install-recommends \
-  # TODO: Handle potential download issue when adding multiples packages with APT
-  && apt-get install -y python3=3.5.3-1 ca-certificates=20161130+nmu1+deb9u1 \
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+    ca-certificates=20161130+nmu1+deb9u1 \
+    jq=1.5+dfsg-1.3 \
+    python3=3.5.3-1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && ln -s /usr/bin/python3 /usr/bin/python
