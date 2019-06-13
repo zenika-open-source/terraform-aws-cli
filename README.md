@@ -7,22 +7,14 @@
 ## Availables Docker image tags
 Repository available on Docker Hub: [zenika/terraform-aws-cli](https://hub.docker.com/r/zenika/terraform-aws-cli)
 
-[Debian](https://hub.docker.com/_/debian) based images ([debian.Dockerfile](https://github.com/Zenika/terraform-aws-cli/blob/master/debian.Dockerfile)):
-
-* zenika/terraform-aws-cli:latest-debian - build on master branch
-* zenika/terraform-aws-cli:X.Y-debian - build on repository tags
-
-[Alpine](https://hub.docker.com/_/alpine) based images ([alpine.Dockerfile](https://github.com/Zenika/terraform-aws-cli/blob/master/alpine.Dockerfile)):
-
-* zenika/terraform-aws-cli:latest - build on master branch (default image tag)
-* zenika/terraform-aws-cli:alpine-latest - build on master branch
-* zenika/terraform-aws-cli:X.Y-alpine - build on repository tags
-
-> Git repository tag naming convention: `/^([0-9.]+)$/`
+* [zenika/terraform-aws-cli:latest](https://github.com/Zenika/terraform-aws-cli/blob/master/alpine.Dockerfile)
+* [zenika/terraform-aws-cli:latest-debian](https://github.com/Zenika/terraform-aws-cli/blob/master/debian.Dockerfile)
+* [zenika/terraform-aws-cli:1.0-alpine](https://github.com/Zenika/terraform-aws-cli/blob/1.0/alpine.Dockerfile)
+* [zenika/terraform-aws-cli:1.0-debian](https://github.com/Zenika/terraform-aws-cli/blob/1.0/debian.Dockerfile)
 
 ## Motivation
 
-The goal is to create a **functional**, **minimalist** and **lightweight** image with these tools in order to reduce network and storage impact.
+The goal is to create a **minimalist** and **lightweight** image with these tools in order to reduce network and storage impact.
 
 This image gives you the flexibility to be used for development or as a base image as you see fits.
 
