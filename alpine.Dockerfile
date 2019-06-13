@@ -6,7 +6,7 @@ ARG TERRAFORM_VERSION=0.11.14
 FROM alpine:3.9.4 as terraform
 ARG TERRAFORM_VERSION
 RUN apk update
-RUN apk add curl=7.64.0-r1
+RUN apk add curl=7.64.0-r2
 RUN apk add unzip=6.0-r4
 RUN apk add gnupg=2.2.12-r0
 RUN curl -Os https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_SHA256SUMS
