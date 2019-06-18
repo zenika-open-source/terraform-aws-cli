@@ -4,11 +4,13 @@
 
 # Terraform and AWS CLI Docker image
 
-## Availables Docker image tags
+## Supported tags and respective Dockerfile links
 Repository available on Docker Hub: [zenika/terraform-aws-cli](https://hub.docker.com/r/zenika/terraform-aws-cli)
 
 * [zenika/terraform-aws-cli:latest](https://github.com/Zenika/terraform-aws-cli/blob/master/alpine.Dockerfile)
 * [zenika/terraform-aws-cli:latest-debian](https://github.com/Zenika/terraform-aws-cli/blob/master/debian.Dockerfile)
+* [zenika/terraform-aws-cli:2.0-alpine](https://github.com/Zenika/terraform-aws-cli/blob/2.0/alpine.Dockerfile)
+* [zenika/terraform-aws-cli:2.0-debian](https://github.com/Zenika/terraform-aws-cli/blob/2.0/debian.Dockerfile)
 * [zenika/terraform-aws-cli:1.0-alpine](https://github.com/Zenika/terraform-aws-cli/blob/1.0/alpine.Dockerfile)
 * [zenika/terraform-aws-cli:1.0-debian](https://github.com/Zenika/terraform-aws-cli/blob/1.0/debian.Dockerfile)
 
