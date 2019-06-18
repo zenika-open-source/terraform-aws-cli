@@ -1,6 +1,6 @@
 # Setup build arguments with default versions
-ARG AWS_CLI_VERSION=1.16.166
-ARG TERRAFORM_VERSION=0.11.14
+ARG AWS_CLI_VERSION=1.16.177
+ARG TERRAFORM_VERSION=0.12.2
 
 # Download Terraform binary
 FROM alpine:3.9.4 as terraform
