@@ -7,7 +7,7 @@ FROM debian:stretch-20190506-slim as terraform
 ARG TERRAFORM_VERSION
 RUN apt-get update
 RUN apt-get install -y curl=7.52.1-5+deb9u9
-RUN apt-get install -y unzip=6.0-21+deb9u1
+RUN apt-get install -y unzip=6.0-21+deb9u2
 RUN apt-get install -y gnupg=2.1.18-8~deb9u4
 RUN curl -Os https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_SHA256SUMS
 RUN curl -Os https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
