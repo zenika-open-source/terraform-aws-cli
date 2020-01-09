@@ -44,7 +44,7 @@ docker container run -it --rm -v ${PWD}:/workspace zenika/terraform-aws-cli:late
 You can build the image locally directly from the Dockerfiles.
 
 ```bash
-docker image build -f Dockerfile -t zenika/terraform-aws-cli:dev .
+docker image build -t zenika/terraform-aws-cli:dev .
 ```
 
 Optionally, it is possible to choose the tools desired versions using [Docker builds arguments](https://docs.docker.com/engine/reference/commandline/build/#set-build-time-variables---build-arg) :
@@ -55,7 +55,7 @@ AWS_CLI_VERSION=1.16.313
 TERRAFORM_VERSION=0.12.19
 
 # Build the image:
-docker image build --build-arg AWS_CLI_VERSION=$AWS_CLI_VERSION --build-arg TERRAFORM_VERSION=$TERRAFORM_VERSION -f debian.Dockerfile -t zenika/terraform-aws-cli:dev .
+docker image build --build-arg AWS_CLI_VERSION=$AWS_CLI_VERSION --build-arg TERRAFORM_VERSION=$TERRAFORM_VERSION -t zenika/terraform-aws-cli:dev .
 ```
 
 ## 🙏 Contributions
