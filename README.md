@@ -8,6 +8,7 @@
 Repository available on Docker Hub: [zenika/terraform-aws-cli](https://hub.docker.com/r/zenika/terraform-aws-cli)
 
 * [zenika/terraform-aws-cli:latest](https://github.com/Zenika/terraform-aws-cli/blob/master/Dockerfile)
+* [zenika/terraform-aws-cli:2.1](https://github.com/Zenika/terraform-aws-cli/blob/2.1/Dockerfile)
 * [zenika/terraform-aws-cli:2.0-alpine](https://github.com/Zenika/terraform-aws-cli/blob/2.0/alpine.Dockerfile)
 * [zenika/terraform-aws-cli:2.0-debian](https://github.com/Zenika/terraform-aws-cli/blob/2.0/debian.Dockerfile)
 * [zenika/terraform-aws-cli:1.0-alpine](https://github.com/Zenika/terraform-aws-cli/blob/1.0/alpine.Dockerfile)
@@ -27,7 +28,7 @@ Tools included:
 * [AWS CLI](https://aws.amazon.com/fr/cli/), see available version on the [pip repository](https://pypi.org/project/awscli/#history)
 * [Terraform CLI](https://www.terraform.io/docs/commands/index.html), see available versions on the [project release page](https://github.com/hashicorp/terraform/releases)
 * [Git](https://git-scm.com/) for Terraform remote module usage, see available versions on the [Debian Packages repository](https://packages.debian.org/search?suite=buster&arch=any&searchon=names&keywords=git)
-* [jq](https://stedolan.github.io/jq/) to process JSON return by AWS, see available versions on the [Debian Packages repository](https://packages.debian.org/search?suite=buster&arch=any&searchon=names&keywords=jq)
+* [jq](https://stedolan.github.io/jq/) to process JSON returned by AWS, see available versions on the [Debian Packages repository](https://packages.debian.org/search?suite=buster&arch=any&searchon=names&keywords=jq)
 
 ## 🚀 Usage
 
@@ -41,7 +42,7 @@ docker container run -it --rm -v ${PWD}:/workspace zenika/terraform-aws-cli:late
 > The `--rm` flag will completely destroy the container and its data on exit.
 
 ### Build the image
-You can build the image locally directly from the Dockerfiles.
+You can build the image locally directly from the Dockerfiles :
 
 ```bash
 docker image build -t zenika/terraform-aws-cli:dev .
