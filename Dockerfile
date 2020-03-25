@@ -1,13 +1,13 @@
 # Setup build arguments with default versions
-ARG AWS_CLI_VERSION=1.16.313
-ARG TERRAFORM_VERSION=0.12.19
+ARG AWS_CLI_VERSION=1.18.29
+ARG TERRAFORM_VERSION=0.12.24
 ARG PYTHON_MAJOR_VERSION=3.7
 
 # Download Terraform binary
 FROM debian:buster-20191224-slim as terraform
 ARG TERRAFORM_VERSION
 RUN apt-get update
-RUN apt-get install -y curl=7.64.0-4
+RUN apt-get install -y curl=7.64.0-4+deb10u1
 RUN apt-get install -y unzip=6.0-23+deb10u1
 RUN apt-get install -y gnupg=2.2.12-1+deb10u1
 RUN curl -Os https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_SHA256SUMS
