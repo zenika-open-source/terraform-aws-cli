@@ -5,8 +5,8 @@ jobs:
       - image: hadolint/hadolint:v1.17.5-alpine
     steps:
       - checkout
-      - run: apt-get update
-      - run: apt-get install -y ca-certificates
+      # - run: apk update
+      # - run: apk add ca-certificates
       - run:
           name: Lint dockerfile
           command: |

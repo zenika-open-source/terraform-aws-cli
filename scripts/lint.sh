@@ -1,6 +1,6 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
-set -eo pipefail 
+set -eo pipefail
 
 if [ -f /.dockerenv ]; then
   hadolint Dockerfile
