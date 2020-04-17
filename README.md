@@ -1,4 +1,4 @@
-[![Docker Build Status](https://img.shields.io/docker/cloud/build/zenika/terraform-aws-cli.svg)](https://hub.docker.com/r/zenika/terraform-aws-cli/)
+[![CircleCI](https://circleci.com/gh/Zenika/terraform-aws-cli.svg?style=svg)](https://circleci.com/gh/Zenika/terraform-aws-cli)
 [![](https://images.microbadger.com/badges/image/zenika/terraform-aws-cli.svg)](https://microbadger.com/images/zenika/terraform-aws-cli)
 [![Docker Pulls](https://img.shields.io/docker/pulls/zenika/terraform-aws-cli.svg)](https://hub.docker.com/r/zenika/terraform-aws-cli/)
 
@@ -42,21 +42,22 @@ docker container run -it --rm -v ${PWD}:/workspace zenika/terraform-aws-cli:late
 > The `--rm` flag will completely destroy the container and its data on exit.
 
 ### Build the image
-You can build the image locally directly from the Dockerfiles :
+You can build the image locally directly from the Dockerfiles, using the build script:
 
 ```bash
-docker image build -t zenika/terraform-aws-cli:dev .
+# launch build script
+./dev-build.sh
 ```
 
 Optionally, it is possible to choose the tools desired versions using [Docker builds arguments](https://docs.docker.com/engine/reference/commandline/build/#set-build-time-variables---build-arg) :
 
 ```bash
 # Set tools desired versions
-AWS_CLI_VERSION=1.16.313
-TERRAFORM_VERSION=0.12.19
+AWS_CLI_VERSION=1.18.29
+TERRAFORM_VERSION=0.12.24
 
-# Build the image:
-docker image build --build-arg AWS_CLI_VERSION=$AWS_CLI_VERSION --build-arg TERRAFORM_VERSION=$TERRAFORM_VERSION -t zenika/terraform-aws-cli:dev .
+# launch the build script with parameters
+./dev-build.sh $AWS_CLI_VERSION $TERRAFORM_VERSION
 ```
 
 ## 🙏 Contributions
