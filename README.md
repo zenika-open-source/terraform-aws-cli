@@ -8,6 +8,7 @@
 Repository available on Docker Hub: [zenika/terraform-aws-cli](https://hub.docker.com/r/zenika/terraform-aws-cli)
 
 * [zenika/terraform-aws-cli:latest](https://github.com/Zenika/terraform-aws-cli/blob/master/Dockerfile)
+* [zenika/terraform-aws-cli:2.2](https://github.com/Zenika/terraform-aws-cli/blob/2.2/Dockerfile)
 * [zenika/terraform-aws-cli:2.1](https://github.com/Zenika/terraform-aws-cli/blob/2.1/Dockerfile)
 * [zenika/terraform-aws-cli:2.0-alpine](https://github.com/Zenika/terraform-aws-cli/blob/2.0/alpine.Dockerfile)
 * [zenika/terraform-aws-cli:2.0-debian](https://github.com/Zenika/terraform-aws-cli/blob/2.0/debian.Dockerfile)
