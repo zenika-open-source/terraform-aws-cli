@@ -2,7 +2,7 @@ version: 2
 jobs:
   lint:
     docker:
-      - image: hadolint/hadolint:v1.17.5-alpine
+      - image: hadolint/hadolint:v1.17.6-alpine
     steps:
       - checkout
       - run:
