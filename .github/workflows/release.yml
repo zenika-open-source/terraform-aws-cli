@@ -41,23 +41,23 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v2
 
-      - name: Get tag and save in env var
-        run: echo "::set-env name=TAG::${GITHUB_REF##*/}"
+      - name: Get release tag and save in env var
+        run: echo "::set-env name=RELEASE_TAG::${GITHUB_REF##*/}"
 
       - name: Build image
-        run: docker image build . --file Dockerfile --build-arg TERRAFORM_VERSION=$TF_VERSION --build-arg AWS_CLI_VERSION=$AWS_CLI_VERSIOIN --tag $ORGANIZATION/$IMAGE_NAME:$TAG-$IMAGE_TAG
+        run: docker image build . --file Dockerfile --build-arg TERRAFORM_VERSION=$TF_VERSION --build-arg AWS_CLI_VERSION=$AWS_CLI_VERSIOIN --tag $ORGANIZATION/$IMAGE_NAME:$RELEASE_TAG-$IMAGE_TAG
 
       - name: Login to Docker Hub registry
         run: echo '${{ secrets.DOCKERHUB_PASS }}' | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
       - name: Push image to registry
-        run: docker push $ORGANIZATION/$IMAGE_NAME:$TAG-$IMAGE_TAG
+        run: docker push $ORGANIZATION/$IMAGE_NAME:$RELEASE_TAG-$IMAGE_TAG
 
       - name: Save image
-        run: docker image save -o $IMAGE_NAME-$TAG-$IMAGE_TAG.tar $ORGANIZATION/$IMAGE_NAME:$TAG-$IMAGE_TAG
+        run: docker image save -o $IMAGE_NAME-$RELEASE_TAG-$IMAGE_TAG.tar $ORGANIZATION/$IMAGE_NAME:$RELEASE_TAG-$IMAGE_TAG
 
       - name: Upload image artifact
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.IMAGE_NAME }}-${{ env.TAG }}-${{ env.IMAGE_TAG }}
-          path: ${{ env.IMAGE_NAME }}-${{ env.TAG }}-${{ env.IMAGE_TAG }}.tar
+          name: ${{ env.IMAGE_NAME }}-${{ env.RELEASE_TAG }}-${{ env.IMAGE_TAG }}
+          path: ${{ env.IMAGE_NAME }}-${{ env.RELEASE_TAG }}-${{ env.IMAGE_TAG }}.tar
