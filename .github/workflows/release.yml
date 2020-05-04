@@ -34,7 +34,7 @@ jobs:
     env:
       TF_VERSION: ${{ matrix.versions.tf_version }}
       AWS_CLI_VERSIOIN: ${{ matrix.versions.awscli_version }}
-      IMAGE_TAG: "tf${{ matrix.versions.tf_version }}-wascli${{ matrix.versions.awscli_version }}"
+      IMAGE_TAG: "tf${{ matrix.versions.tf_version }}-awscli${{ matrix.versions.awscli_version }}"
 
     steps:
       - name: Check out the repo
@@ -65,7 +65,7 @@ jobs:
           - { tf_version: "0.12.24", awscli_version: "1.18.40" }
 
     env:
-      IMAGE_TAG: ${{ matrix.versions.tf_version }}${{ matrix.versions.awscli_version }}
+      IMAGE_TAG: "tf${{ matrix.versions.tf_version }}-awscli${{ matrix.versions.awscli_version }}"
 
     steps:
       - name: Get tag and save in env var
