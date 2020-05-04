@@ -34,10 +34,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build image
-        run: docker image build . --file Dockerfile --tag $IMAGE_NAME:IMAGE_TAG
+        run: docker image build . --file Dockerfile --tag $IMAGE_NAME:$IMAGE_TAG
 
       - name: save image
-        run: docker image save -o image.tar $IMAGE_NAME:IMAGE_TAG
+        run: docker image save -o image.tar $IMAGE_NAME:$IMAGE_TAG
 
       - name: Upload image artifact
         uses: actions/upload-artifact@v2
