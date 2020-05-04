@@ -3,9 +3,8 @@ name: push-latest
 # trigger on master
 on:
   push:
-    # TODO uncomment
-    # branches:
-    #   - "master"
+    branches:
+      - "master"
 
 env:
   IMAGE_NAME: "zenika/terraform-aws-cli"
