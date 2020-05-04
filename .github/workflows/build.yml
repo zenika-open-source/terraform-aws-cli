@@ -34,14 +34,17 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v2
 
+      - name: Save branch name as env var
+        run: echo "::set-env name=BRANCH::${GITHUB_REF##*/}"
+
       - name: Build image
-        run: docker image build . --file Dockerfile --tag $IMAGE_NAME:${GITHUB_REF##*/}
+        run: docker image build . --file Dockerfile --tag $IMAGE_NAME:$BRANCH
 
       - name: save image
-        run: docker image save -o image.tar $IMAGE_NAME:${GITHUB_REF##*/}
+        run: docker image save -o $IMAGE_NAME-$BRANCH.tar $IMAGE_NAME:$BRANCH
 
       - name: Upload image artifact
         uses: actions/upload-artifact@v2
         with:
-          name: image
-          path: image.tar
+          name: ${{ env.IMAGE_NAME }}-${{ env.BRANCH }}
+          path: ${{ env.IMAGE_NAME }}-${{ env.BRANCH }}.tar
