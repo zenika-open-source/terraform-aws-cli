@@ -7,8 +7,8 @@ on:
     tags-ignore:
       - "**"
     branches:
-      - "!master"
       - "**"
+      - "!master"
 
 env:
   IMAGE_NAME: "zenika/terraform-aws-cli"
