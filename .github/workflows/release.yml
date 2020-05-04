@@ -29,7 +29,7 @@ jobs:
     strategy:
       matrix:
         versions:
-          - { tf_version: "0.12.24", awscli_version: "1.18.40" }
+          - { tf_version: "0.12.24", awscli_version: "1.18.51" }
 
     env:
       TF_VERSION: ${{ matrix.versions.tf_version }}
@@ -40,7 +40,7 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v2
 
-      - name: get tag and save in env var
+      - name: Get tag and save in env var
         run: echo "::set-env name=TAG::${GITHUB_REF##*/}"
 
       - name: Build image
@@ -68,7 +68,7 @@ jobs:
       IMAGE_TAG: ${{ matrix.versions.tf_version }}${{ matrix.versions.awscli_version }}
 
     steps:
-      - name: get tag and save in env var
+      - name: Get tag and save in env var
         run: echo "::set-env name=TAG::${GITHUB_REF##*/}"
 
       - name: download image artifact
@@ -80,7 +80,7 @@ jobs:
         run: docker image load --input image-$TAG-$IMAGE_TAG.tar
 
       - name: Login to Docker Hub registry
-        run: echo ${{ secrets.DOCKERHUB_PASS }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+        run: echo '${{ secrets.DOCKERHUB_PASS }}' | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
       - name: Push image to registry
         run: docker push $IMAGE_NAME:$TAG-$IMAGE_TAG
