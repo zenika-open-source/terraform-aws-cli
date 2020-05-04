@@ -7,7 +7,8 @@ on:
       - "**"
 
 env:
-  IMAGE_NAME: "zenika/terraform-aws-cli"
+  ORGANIZATION: "zenika"
+  IMAGE_NAME: "terraform-aws-cli"
 
 jobs:
   lint:
@@ -44,16 +45,16 @@ jobs:
         run: echo "::set-env name=TAG::${GITHUB_REF##*/}"
 
       - name: Build image
-        run: docker image build . --file Dockerfile --build-arg TERRAFORM_VERSION=$TF_VERSION --build-arg AWS_CLI_VERSION=$AWS_CLI_VERSIOIN --tag $IMAGE_NAME:$TAG-$IMAGE_TAG
+        run: docker image build . --file Dockerfile --build-arg TERRAFORM_VERSION=$TF_VERSION --build-arg AWS_CLI_VERSION=$AWS_CLI_VERSIOIN --tag $ORGANIZATION/$IMAGE_NAME:$TAG-$IMAGE_TAG
 
       - name: Login to Docker Hub registry
         run: echo '${{ secrets.DOCKERHUB_PASS }}' | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
       - name: Push image to registry
-        run: docker push $IMAGE_NAME:$TAG-$IMAGE_TAG
+        run: docker push $ORGANIZATION/$IMAGE_NAME:$TAG-$IMAGE_TAG
 
-      - name: save image
-        run: docker image save -o $IMAGE_NAME-$TAG-$IMAGE_TAG.tar $IMAGE_NAME:$TAG-$IMAGE_TAG
+      - name: Save image
+        run: docker image save -o $IMAGE_NAME-$TAG-$IMAGE_TAG.tar $ORGANIZATION/$IMAGE_NAME:$TAG-$IMAGE_TAG
 
       - name: Upload image artifact
         uses: actions/upload-artifact@v2

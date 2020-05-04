@@ -7,7 +7,8 @@ on:
       - "master"
 
 env:
-  IMAGE_NAME: "zenika/terraform-aws-cli"
+  ORGANIZATION: "zenika"
+  IMAGE_NAME: "terraform-aws-cli"
   IMAGE_TAG: "latest"
 
 jobs:
@@ -32,16 +33,16 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build image
-        run: docker image build . --file Dockerfile --tag $IMAGE_NAME:$IMAGE_TAG
+        run: docker image build . --file Dockerfile --tag $ORGANIZATION/$IMAGE_NAME:$IMAGE_TAG
 
       - name: Login to Docker Hub registry
         run: echo '${{ secrets.DOCKERHUB_PASS }}' | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
       - name: Push image to registry
-        run: docker push $IMAGE_NAME:$IMAGE_TAG
+        run: docker push $ORGANIZATION/$IMAGE_NAME:$IMAGE_TAG
 
-      - name: save image
-        run: docker image save -o $IMAGE_NAME-$IMAGE_TAG.tar $IMAGE_NAME:$IMAGE_TAG
+      - name: Save image
+        run: docker image save -o $IMAGE_NAME-$IMAGE_TAG.tar $ORGANIZATION/$IMAGE_NAME:$IMAGE_TAG
 
       - name: Upload image artifact
         uses: actions/upload-artifact@v2

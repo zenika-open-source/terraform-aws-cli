@@ -11,7 +11,8 @@ on:
       - "!master"
 
 env:
-  IMAGE_NAME: "zenika/terraform-aws-cli"
+  ORGANIZATION: "zenika"
+  IMAGE_NAME: "terraform-aws-cli"
 
 jobs:
   lint:
@@ -38,10 +39,10 @@ jobs:
         run: echo "::set-env name=BRANCH::${GITHUB_REF##*/}"
 
       - name: Build image
-        run: docker image build . --file Dockerfile --tag $IMAGE_NAME:$BRANCH
+        run: docker image build . --file Dockerfile --tag $ORGANIZATION/$IMAGE_NAME:$BRANCH
 
-      - name: save image
-        run: docker image save -o $IMAGE_NAME-$BRANCH.tar $IMAGE_NAME:$BRANCH
+      - name: Save image
+        run: docker image save -o $IMAGE_NAME-$BRANCH.tar $ORGANIZATION/$IMAGE_NAME:$BRANCH
 
       - name: Upload image artifact
         uses: actions/upload-artifact@v2
