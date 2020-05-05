@@ -1,21 +1,23 @@
-[![CircleCI](https://circleci.com/gh/Zenika/terraform-aws-cli.svg?style=svg)](https://circleci.com/gh/Zenika/terraform-aws-cli)
+[![build](https://github.com/Zenika/terraform-aws-cli/workflows/build/badge.svg)](https://github.com/Zenika/terraform-aws-cli/actions?query=workflow%3Abuild)
+[![push-latest](https://github.com/Zenika/terraform-aws-cli/workflows/push-latest/badge.svg)](https://github.com/Zenika/terraform-aws-cli/actions?query=workflow%3Apush-latest)
+[![release](https://github.com/Zenika/terraform-aws-cli/workflows/release/badge.svg)](https://github.com/Zenika/terraform-aws-cli/actions?query=workflow%3Arelease)
 [![](https://images.microbadger.com/badges/image/zenika/terraform-aws-cli.svg)](https://microbadger.com/images/zenika/terraform-aws-cli)
 [![Docker Pulls](https://img.shields.io/docker/pulls/zenika/terraform-aws-cli.svg)](https://hub.docker.com/r/zenika/terraform-aws-cli/)
 
 # Terraform and AWS CLI Docker image
 
 ## 📦 Supported tags and respective Dockerfile links
-Repository available on Docker Hub: [zenika/terraform-aws-cli](https://hub.docker.com/r/zenika/terraform-aws-cli)
+Available image tags can be found on the Docker Hub registry: [zenika/terraform-aws-cli](https://hub.docker.com/r/zenika/terraform-aws-cli/tags)
 
-* [zenika/terraform-aws-cli:latest](https://github.com/Zenika/terraform-aws-cli/blob/master/Dockerfile)
-* [zenika/terraform-aws-cli:2.2](https://github.com/Zenika/terraform-aws-cli/blob/2.2/Dockerfile)
-* [zenika/terraform-aws-cli:2.1](https://github.com/Zenika/terraform-aws-cli/blob/2.1/Dockerfile)
-* [zenika/terraform-aws-cli:2.0-alpine](https://github.com/Zenika/terraform-aws-cli/blob/2.0/alpine.Dockerfile)
-* [zenika/terraform-aws-cli:2.0-debian](https://github.com/Zenika/terraform-aws-cli/blob/2.0/debian.Dockerfile)
-* [zenika/terraform-aws-cli:1.0-alpine](https://github.com/Zenika/terraform-aws-cli/blob/1.0/alpine.Dockerfile)
-* [zenika/terraform-aws-cli:1.0-debian](https://github.com/Zenika/terraform-aws-cli/blob/1.0/debian.Dockerfile)
+The following image tag strategy is applied:
+* `zenika/terraform-aws-cli:latest` - build from master
+  * Included CLI versions can be found in the [Dockerfile](https://github.com/Zenika/terraform-aws-cli/blob/master/Dockerfile)
+* `zenika/terraform-aws-cli:S.T-tfUU.VV.WW-awscliXX.YY.ZZ` - build from releases
+  * `S.T` is the release tag
+  * `UU.VV.WWW` is the Terraform version included in the image
+  * `XX.YY.ZZ` is the AWS CLI version included in the image
 
-⚠️ Alpine build support is deprecated, new versions will only be debian based.
+Please report to the [releases page](https://github.com/Zenika/terraform-aws-cli/releases) for the changelogs. Any other tags are not supported.
 
 ## 💡 Motivation
 
@@ -26,35 +28,36 @@ This image gives you the flexibility to be used for development or as a base ima
 ## 🔧 What's inside ?
 Tools included:
 
-* [AWS CLI](https://aws.amazon.com/fr/cli/), see available version on the [pip repository](https://pypi.org/project/awscli/#history)
-* [Terraform CLI](https://www.terraform.io/docs/commands/index.html), see available versions on the [project release page](https://github.com/hashicorp/terraform/releases)
+* [AWS CLI](https://aws.amazon.com/fr/cli/)
+  * Included version indicated in the image tag: `tfXX.YY.ZZ`
+  * See available version on the [pip repository](https://pypi.org/project/awscli/#history)
+* [Terraform CLI](https://www.terraform.io/docs/commands/index.html)
+  * Included version indicated in the image tag: `awscliXX.YY.ZZ`
+  * See available versions on the [project release page](https://github.com/hashicorp/terraform/releases)
 * [Git](https://git-scm.com/) for Terraform remote module usage, see available versions on the [Debian Packages repository](https://packages.debian.org/search?suite=buster&arch=any&searchon=names&keywords=git)
 * [jq](https://stedolan.github.io/jq/) to process JSON returned by AWS, see available versions on the [Debian Packages repository](https://packages.debian.org/search?suite=buster&arch=any&searchon=names&keywords=jq)
 
 ## 🚀 Usage
 
 ### Launch the CLI
-Simply launch the container and use the CLI as you would on any other platform, for instance using the latest image:
+Set your AWS credentials (optional) and launch the container, for instance using the latest image:
 
 ```bash
-docker container run -it --rm -v ${PWD}:/workspace zenika/terraform-aws-cli:latest
+echo AWS_ACCESS_KEY_ID=YOUR_ACCESS_KEY
+echo AWS_SECRET_ACCESS_KEY=YOUR_SECRET_KEY
+echo AWS_DEFAULT_REGION=YOUR_DEFAULT_REGION
+
+docker container run -it --rm -e "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}" -e "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}" -e "AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}" -v ${PWD}:/workspace zenika/terraform-aws-cli:latest
 ```
 
 > The `--rm` flag will completely destroy the container and its data on exit.
 
 ### Build the image
-You can build the image locally directly from the Dockerfiles, using the build script:
-
-```bash
-# launch build script
-./dev-build.sh
-```
-
-Optionally, it is possible to choose the tools desired versions using [Docker builds arguments](https://docs.docker.com/engine/reference/commandline/build/#set-build-time-variables---build-arg) :
+You can build the image locally directly from the Dockerfiles, using the build script::
 
 ```bash
 # Set tools desired versions
-AWS_CLI_VERSION=1.18.29
+AWS_CLI_VERSION=1.18.52
 TERRAFORM_VERSION=0.12.24
 
 # launch the build script with parameters
