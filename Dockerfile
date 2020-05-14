@@ -1,6 +1,6 @@
 # Setup build arguments with default versions
-ARG AWS_CLI_VERSION=1.18.52
-ARG TERRAFORM_VERSION=0.12.24
+ARG AWS_CLI_VERSION=1.18.59
+ARG TERRAFORM_VERSION=0.12.25
 ARG PYTHON_MAJOR_VERSION=3.7
 
 # Download Terraform binary
@@ -39,7 +39,7 @@ ARG PYTHON_MAJOR_VERSION
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     ca-certificates=20190110 \
-    git=1:2.20.1-2+deb10u1 \
+    git=1:2.20.1-2+deb10u3 \
     jq=1.5+dfsg-2+b1 \
     python3=${PYTHON_MAJOR_VERSION}.3-1 \
   && apt-get clean \
