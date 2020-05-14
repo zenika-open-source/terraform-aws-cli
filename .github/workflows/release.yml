@@ -30,7 +30,9 @@ jobs:
     strategy:
       matrix:
         versions:
+          - { tf_version: "0.11.14", awscli_version: "1.18.51" }
           - { tf_version: "0.12.24", awscli_version: "1.18.51" }
+          - { tf_version: "0.12.25", awscli_version: "1.18.59" }
 
     env:
       TF_VERSION: ${{ matrix.versions.tf_version }}
@@ -41,23 +43,26 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v2
 
-      - name: Get release tag and save in env var
+      - name: Get and save release tag
         run: echo "::set-env name=RELEASE_TAG::${GITHUB_REF##*/}"
 
+      - name: Build and save image release tag
+        run: echo "::set-env name=IMAGE_RELEASE_TAG::r${RELEASE_TAG}-${IMAGE_TAG}"
+
       - name: Build image
-        run: docker image build . --file Dockerfile --build-arg TERRAFORM_VERSION=$TF_VERSION --build-arg AWS_CLI_VERSION=$AWS_CLI_VERSIOIN --tag $ORGANIZATION/$IMAGE_NAME:$RELEASE_TAG-$IMAGE_TAG
+        run: docker image build . --file Dockerfile --build-arg TERRAFORM_VERSION=$TF_VERSION --build-arg AWS_CLI_VERSION=$AWS_CLI_VERSIOIN --tag $ORGANIZATION/$IMAGE_NAME:$IMAGE_RELEASE_TAG
 
       - name: Login to Docker Hub registry
         run: echo '${{ secrets.DOCKERHUB_PASS }}' | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
       - name: Push image to registry
-        run: docker push $ORGANIZATION/$IMAGE_NAME:$RELEASE_TAG-$IMAGE_TAG
+        run: docker push $ORGANIZATION/$IMAGE_NAME:$IMAGE_RELEASE_TAG
 
       - name: Save image
-        run: docker image save -o $IMAGE_NAME-$RELEASE_TAG-$IMAGE_TAG.tar $ORGANIZATION/$IMAGE_NAME:$RELEASE_TAG-$IMAGE_TAG
+        run: docker image save -o $IMAGE_NAME-$IMAGE_RELEASE_TAG.tar $ORGANIZATION/$IMAGE_NAME:$IMAGE_RELEASE_TAG
 
       - name: Upload image artifact
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.IMAGE_NAME }}-${{ env.RELEASE_TAG }}-${{ env.IMAGE_TAG }}
-          path: ${{ env.IMAGE_NAME }}-${{ env.RELEASE_TAG }}-${{ env.IMAGE_TAG }}.tar
+          name: ${{ env.IMAGE_NAME }}-${{ env.IMAGE_RELEASE_TAG }}
+          path: ${{ env.IMAGE_NAME }}-${{ env.IMAGE_RELEASE_TAG }}.tar
