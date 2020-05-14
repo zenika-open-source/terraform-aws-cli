@@ -1,7 +1,6 @@
 [![build](https://github.com/Zenika/terraform-aws-cli/workflows/build/badge.svg)](https://github.com/Zenika/terraform-aws-cli/actions?query=workflow%3Abuild)
 [![push-latest](https://github.com/Zenika/terraform-aws-cli/workflows/push-latest/badge.svg)](https://github.com/Zenika/terraform-aws-cli/actions?query=workflow%3Apush-latest)
 [![release](https://github.com/Zenika/terraform-aws-cli/workflows/release/badge.svg)](https://github.com/Zenika/terraform-aws-cli/actions?query=workflow%3Arelease)
-[![](https://images.microbadger.com/badges/image/zenika/terraform-aws-cli.svg)](https://microbadger.com/images/zenika/terraform-aws-cli)
 [![Docker Pulls](https://img.shields.io/docker/pulls/zenika/terraform-aws-cli.svg)](https://hub.docker.com/r/zenika/terraform-aws-cli/)
 
 # Terraform and AWS CLI Docker image
@@ -13,14 +12,13 @@ The following image tag strategy is applied:
 * `zenika/terraform-aws-cli:latest` - build from master
   * Included CLI versions can be found in the [Dockerfile](https://github.com/Zenika/terraform-aws-cli/blob/master/Dockerfile)
 * `zenika/terraform-aws-cli:S.T-tfUU.VV.WW-awscliXX.YY.ZZ` - build from releases
-  * `S.T` is the release tag
-  * `UU.VV.WWW` is the Terraform version included in the image
-  * `XX.YY.ZZ` is the AWS CLI version included in the image
+  * `rS.T` is the release tag
+  * `tfUU.VV.WWW` is the Terraform version included in the image
+  * `awscliXX.YY.ZZ` is the AWS CLI version included in the image
 
 Please report to the [releases page](https://github.com/Zenika/terraform-aws-cli/releases) for the changelogs. Any other tags are not supported.
 
 ## 💡 Motivation
-
 The goal is to create a **minimalist** and **lightweight** image with these tools in order to reduce network and storage impact.
 
 This image gives you the flexibility to be used for development or as a base image as you see fits.
