@@ -11,7 +11,7 @@ Available image tags can be found on the Docker Hub registry: [zenika/terraform-
 The following image tag strategy is applied:
 * `zenika/terraform-aws-cli:latest` - build from master
   * Included CLI versions can be found in the [Dockerfile](https://github.com/Zenika/terraform-aws-cli/blob/master/Dockerfile)
-* `zenika/terraform-aws-cli:S.T-tfUU.VV.WW-awscliXX.YY.ZZ` - build from releases
+* `zenika/terraform-aws-cli:rS.T-tfUU.VV.WW-awscliXX.YY.ZZ` - build from releases
   * `rS.T` is the release tag
   * `tfUU.VV.WWW` is the Terraform version included in the image
   * `awscliXX.YY.ZZ` is the AWS CLI version included in the image
