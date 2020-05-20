@@ -1,6 +1,8 @@
 [![lint-build-test](https://github.com/Zenika/terraform-aws-cli/workflows/lint-build-test/badge.svg)](https://github.com/Zenika/terraform-aws-cli/actions?query=workflow%3Alint-build-test)
 [![push-latest](https://github.com/Zenika/terraform-aws-cli/workflows/push-latest/badge.svg)](https://github.com/Zenika/terraform-aws-cli/actions?query=workflow%3Apush-latest)
 [![release](https://github.com/Zenika/terraform-aws-cli/workflows/release/badge.svg)](https://github.com/Zenika/terraform-aws-cli/actions?query=workflow%3Arelease)
+
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Docker Pulls](https://img.shields.io/docker/pulls/zenika/terraform-aws-cli.svg)](https://hub.docker.com/r/zenika/terraform-aws-cli/)
 
 # Terraform and AWS CLI Docker image
