@@ -1,10 +1,9 @@
 name: release
 
-# trigger on tag
+# trigger on published release
 on:
-  push:
-    tags:
-      - "**"
+  release:
+    types: [published]
 
 env:
   ORGANIZATION: "zenika"
@@ -30,8 +29,8 @@ jobs:
     strategy:
       matrix:
         versions:
-          - { tf_version: "0.11.14", awscli_version: "1.18.51" }
-          - { tf_version: "0.12.24", awscli_version: "1.18.51" }
+          - { tf_version: "0.11.14", awscli_version: "1.18.59" }
+          - { tf_version: "0.12.24", awscli_version: "1.18.59" }
           - { tf_version: "0.12.25", awscli_version: "1.18.59" }
 
     env:
