@@ -35,6 +35,7 @@ RUN pip3 install awscli==${AWS_CLI_VERSION}
 
 # Build final image
 FROM debian:buster-20191224-slim
+LABEL maintainer="bgauduch@github"
 ARG PYTHON_MAJOR_VERSION
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \

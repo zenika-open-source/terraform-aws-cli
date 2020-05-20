@@ -1,6 +1,8 @@
-[![build](https://github.com/Zenika/terraform-aws-cli/workflows/build/badge.svg)](https://github.com/Zenika/terraform-aws-cli/actions?query=workflow%3Abuild)
+[![lint-build-test](https://github.com/Zenika/terraform-aws-cli/workflows/lint-build-test/badge.svg)](https://github.com/Zenika/terraform-aws-cli/actions?query=workflow%3Alint-build-test)
 [![push-latest](https://github.com/Zenika/terraform-aws-cli/workflows/push-latest/badge.svg)](https://github.com/Zenika/terraform-aws-cli/actions?query=workflow%3Apush-latest)
 [![release](https://github.com/Zenika/terraform-aws-cli/workflows/release/badge.svg)](https://github.com/Zenika/terraform-aws-cli/actions?query=workflow%3Arelease)
+
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Docker Pulls](https://img.shields.io/docker/pulls/zenika/terraform-aws-cli.svg)](https://hub.docker.com/r/zenika/terraform-aws-cli/)
 
 # Terraform and AWS CLI Docker image
@@ -11,7 +13,7 @@ Available image tags can be found on the Docker Hub registry: [zenika/terraform-
 The following image tag strategy is applied:
 * `zenika/terraform-aws-cli:latest` - build from master
   * Included CLI versions can be found in the [Dockerfile](https://github.com/Zenika/terraform-aws-cli/blob/master/Dockerfile)
-* `zenika/terraform-aws-cli:S.T-tfUU.VV.WW-awscliXX.YY.ZZ` - build from releases
+* `zenika/terraform-aws-cli:rS.T-tfUU.VV.WW-awscliXX.YY.ZZ` - build from releases
   * `rS.T` is the release tag
   * `tfUU.VV.WWW` is the Terraform version included in the image
   * `awscliXX.YY.ZZ` is the AWS CLI version included in the image
@@ -51,7 +53,21 @@ docker container run -it --rm -e "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}" -e "AW
 > The `--rm` flag will completely destroy the container and its data on exit.
 
 ### Build the image
-You can build the image locally directly from the Dockerfiles, using the build script::
+You can build the image locally directly from the Dockerfiles, using the build script.
+
+It will :
+* Lint the Dockerfile with [Hadolint](https://github.com/hadolint/hadolint);
+* Build and tag the image `zenika/terraform-aws-cli:dev`;
+* Execute [container structure tests](https://github.com/GoogleContainerTools/container-structure-test) on the image.
+
+```bash
+# launch build script
+./dev-build.sh
+```
+
+Optionally, it is possible to choose the tools desired versions using [Docker builds arguments](https://docs.docker.com/engine/reference/commandline/build/#set-build-time-variables---build-arg):
+
+> Be aware that tests will fail and should be updated if you choose different CLI versions.
 
 ```bash
 # Set tools desired versions
