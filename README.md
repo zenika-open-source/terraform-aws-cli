@@ -1,4 +1,4 @@
-[![build](https://github.com/Zenika/terraform-aws-cli/workflows/build/badge.svg)](https://github.com/Zenika/terraform-aws-cli/actions?query=workflow%3Abuild)
+[![lint-build-test](https://github.com/Zenika/terraform-aws-cli/workflows/lint-build-test/badge.svg)](https://github.com/Zenika/terraform-aws-cli/actions?query=workflow%3Alint-build-test)
 [![push-latest](https://github.com/Zenika/terraform-aws-cli/workflows/push-latest/badge.svg)](https://github.com/Zenika/terraform-aws-cli/actions?query=workflow%3Apush-latest)
 [![release](https://github.com/Zenika/terraform-aws-cli/workflows/release/badge.svg)](https://github.com/Zenika/terraform-aws-cli/actions?query=workflow%3Arelease)
 [![Docker Pulls](https://img.shields.io/docker/pulls/zenika/terraform-aws-cli.svg)](https://hub.docker.com/r/zenika/terraform-aws-cli/)
@@ -51,7 +51,21 @@ docker container run -it --rm -e "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}" -e "AW
 > The `--rm` flag will completely destroy the container and its data on exit.
 
 ### Build the image
-You can build the image locally directly from the Dockerfiles, using the build script::
+You can build the image locally directly from the Dockerfiles, using the build script.
+
+It will :
+* Lint the Dockerfile with [Hadolint](https://github.com/hadolint/hadolint);
+* Build and tag the image `zenika/terraform-aws-cli:dev`;
+* Execute [container structure tests](https://github.com/GoogleContainerTools/container-structure-test) on the image.
+
+```bash
+# launch build script
+./dev-build.sh
+```
+
+Optionally, it is possible to choose the tools desired versions using [Docker builds arguments](https://docs.docker.com/engine/reference/commandline/build/#set-build-time-variables---build-arg):
+
+> Be aware that tests will fail and should be updated if you choose different CLI versions.
 
 ```bash
 # Set tools desired versions
