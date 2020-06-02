@@ -1,6 +1,6 @@
 # Setup build arguments with default versions
-ARG AWS_CLI_VERSION=1.18.59
-ARG TERRAFORM_VERSION=0.12.25
+ARG AWS_CLI_VERSION=1.18.70
+ARG TERRAFORM_VERSION=0.12.26
 ARG PYTHON_MAJOR_VERSION=3.7
 
 # Download Terraform binary
