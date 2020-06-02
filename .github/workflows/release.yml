@@ -29,9 +29,8 @@ jobs:
     strategy:
       matrix:
         versions:
-          - { tf_version: "0.11.14", awscli_version: "1.18.59" }
-          - { tf_version: "0.12.24", awscli_version: "1.18.59" }
-          - { tf_version: "0.12.25", awscli_version: "1.18.59" }
+          - { tf_version: "0.11.14", awscli_version: "1.18.70" }
+          - { tf_version: "0.12.26", awscli_version: "1.18.70" }
 
     env:
       TF_VERSION: ${{ matrix.versions.tf_version }}
