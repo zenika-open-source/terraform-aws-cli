@@ -5,10 +5,6 @@ on:
   release:
     types: [published]
 
-env:
-  ORGANIZATION: "zenika"
-  IMAGE_NAME: "terraform-aws-cli"
-
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -28,40 +24,40 @@ jobs:
 
     strategy:
       matrix:
-        versions:
-          - { tf_version: "0.11.14", awscli_version: "1.18.85" }
-          - { tf_version: "0.12.26", awscli_version: "1.18.85" }
-          - { tf_version: "0.13.0-beta2", awscli_version: "1.18.85" }
+        tf_version:
+          - "0.11.14"
+          - "0.12.28"
+          - "0.13.0-beta3"
 
     env:
-      TF_VERSION: ${{ matrix.versions.tf_version }}
-      AWS_CLI_VERSIOIN: ${{ matrix.versions.awscli_version }}
-      IMAGE_TAG: "tf${{ matrix.versions.tf_version }}-awscli${{ matrix.versions.awscli_version }}"
+      ORGANIZATION: "zenika"
+      IMAGE_NAME: "terraform-aws-cli"
+      AWS_CLI_VERSION: "1.18.93"
 
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
 
-      - name: Get and save release tag
+      - name: Get and save the release tag
         run: echo "::set-env name=RELEASE_TAG::${GITHUB_REF##*/}"
 
-      - name: Build and save image release tag
-        run: echo "::set-env name=IMAGE_RELEASE_TAG::r${RELEASE_TAG}-${IMAGE_TAG}"
+      - name: Build and save the image release tag
+        run: echo "::set-env name=IMAGE_TAG::release-${RELEASE_TAG}_terraform-${{ matrix.tf_version }}_awscli-${AWS_CLI_VERSION}"
 
       - name: Build image
-        run: docker image build . --file Dockerfile --build-arg TERRAFORM_VERSION=$TF_VERSION --build-arg AWS_CLI_VERSION=$AWS_CLI_VERSIOIN --tag $ORGANIZATION/$IMAGE_NAME:$IMAGE_RELEASE_TAG
+        run: docker image build . --file Dockerfile --build-arg TERRAFORM_VERSION=${{ matrix.tf_version }} --build-arg AWS_CLI_VERSION=${AWS_CLI_VERSION} --tag ${ORGANIZATION}/${IMAGE_NAME}:${IMAGE_TAG}
 
       - name: Login to Docker Hub registry
         run: echo '${{ secrets.DOCKERHUB_PASS }}' | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
       - name: Push image to registry
-        run: docker push $ORGANIZATION/$IMAGE_NAME:$IMAGE_RELEASE_TAG
+        run: docker push ${ORGANIZATION}/${IMAGE_NAME}:${IMAGE_TAG}
 
       - name: Save image
-        run: docker image save -o $IMAGE_NAME-$IMAGE_RELEASE_TAG.tar $ORGANIZATION/$IMAGE_NAME:$IMAGE_RELEASE_TAG
+        run: docker image save -o ${IMAGE_NAME}-${IMAGE_TAG}.tar ${ORGANIZATION}/${IMAGE_NAME}:${IMAGE_TAG}
 
       - name: Upload image artifact
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.IMAGE_NAME }}-${{ env.IMAGE_RELEASE_TAG }}
-          path: ${{ env.IMAGE_NAME }}-${{ env.IMAGE_RELEASE_TAG }}.tar
+          name: ${{ env.IMAGE_NAME }}-${{ env.IMAGE_TAG }}
+          path: ${{ env.IMAGE_NAME }}-${{ env.IMAGE_TAG }}.tar
