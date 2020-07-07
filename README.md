@@ -15,7 +15,7 @@ The following image tag strategy is applied:
   * Included CLI versions can be found in the [Dockerfile](https://github.com/Zenika/terraform-aws-cli/blob/master/Dockerfile)
 * `zenika/terraform-aws-cli:release-S.T_terraform-UU.VV.WW_awscli-XX.YY.ZZ` - build from releases
   * `release-S.T` is the release tag
-  * `terraform-fUU.VV.WWW` is the Terraform version included in the image
+  * `terraform-UU.VV.WWW` is the Terraform version included in the image
   * `awscli-XX.YY.ZZ` is the AWS CLI version included in the image
 
 Please report to the [releases page](https://github.com/Zenika/terraform-aws-cli/releases) for the changelogs. Any other tags are not supported.
