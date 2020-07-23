@@ -27,12 +27,14 @@ jobs:
         tf_version:
           - "0.11.14"
           - "0.12.28"
-          - "0.13.0-beta3"
+          - "0.13.0-rc1"
+        awscli_version:
+          - "1.18.101"
+          - "1.18.102"
 
     env:
       ORGANIZATION: "zenika"
       IMAGE_NAME: "terraform-aws-cli"
-      AWS_CLI_VERSION: "1.18.93"
 
     steps:
       - name: Check out the repo
@@ -42,10 +44,10 @@ jobs:
         run: echo "::set-env name=RELEASE_TAG::${GITHUB_REF##*/}"
 
       - name: Build and save the image release tag
-        run: echo "::set-env name=IMAGE_TAG::release-${RELEASE_TAG}_terraform-${{ matrix.tf_version }}_awscli-${AWS_CLI_VERSION}"
+        run: echo "::set-env name=IMAGE_TAG::release-${RELEASE_TAG}_terraform-${{ matrix.tf_version }}_awscli-${{ matrix.awscli_version }}"
 
       - name: Build image
-        run: docker image build . --file Dockerfile --build-arg TERRAFORM_VERSION=${{ matrix.tf_version }} --build-arg AWS_CLI_VERSION=${AWS_CLI_VERSION} --tag ${ORGANIZATION}/${IMAGE_NAME}:${IMAGE_TAG}
+        run: docker image build . --file Dockerfile --build-arg TERRAFORM_VERSION=${{ matrix.tf_version }} --build-arg AWS_CLI_VERSION=${{ matrix.awscli_version }} --tag ${ORGANIZATION}/${IMAGE_NAME}:${IMAGE_TAG}
 
       - name: Login to Docker Hub registry
         run: echo '${{ secrets.DOCKERHUB_PASS }}' | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
