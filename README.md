@@ -39,7 +39,7 @@ Tools included:
 
 ## 🚀 Usage
 
-### Launch the CLI
+ ### 🐚 Launch the CLI
 Set your AWS credentials (optional) and launch the container, for instance using the latest image:
 
 ```bash
@@ -52,7 +52,7 @@ docker container run -it --rm -e "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}" -e "AW
 
 > The `--rm` flag will completely destroy the container and its data on exit.
 
-### Build the image
+### ⚙️ Build the image
 You can build the image locally directly from the Dockerfiles, using the build script.
 
 It will :
