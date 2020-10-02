@@ -39,7 +39,7 @@ Tools included:
 
 ## 🚀 Usage
 
- ### 🐚 Launch the CLI
+### 🐚 Launch the CLI
 Set your AWS credentials (optional) and launch the container, for instance using the latest image:
 
 ```bash
