@@ -30,7 +30,7 @@ Tools included:
 
 * [AWS CLI](https://aws.amazon.com/fr/cli/)
   * Included version indicated in the image tag: `awscli-XX.YY.ZZ`
-  * See available version on the [pip repository](https://pypi.org/project/awscli/#history)
+  * See available version on the [project release page](https://github.com/aws/aws-cli/releases)
 * [Terraform CLI](https://www.terraform.io/docs/commands/index.html)
   * Included version indicated in the image tag: `terraform-XX.YY.ZZ`
   * See available versions on the [project release page](https://github.com/hashicorp/terraform/releases)
@@ -71,8 +71,8 @@ Optionally, it is possible to choose the tools desired versions using [Docker bu
 
 ```bash
 # Set tools desired versions
-AWS_CLI_VERSION=1.18.93
-TERRAFORM_VERSION=0.12.28
+AWS_CLI_VERSION=1.18.166
+TERRAFORM_VERSION=0.13.5
 
 # launch the build script with parameters
 ./dev-build.sh $AWS_CLI_VERSION $TERRAFORM_VERSION

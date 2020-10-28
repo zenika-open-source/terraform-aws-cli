@@ -1,8 +1,8 @@
 # Setup build arguments with default versions
-ARG AWS_CLI_VERSION=1.18.127
-ARG TERRAFORM_VERSION=0.13.1
+ARG AWS_CLI_VERSION=1.18.166
+ARG TERRAFORM_VERSION=0.13.5
 ARG PYTHON_MAJOR_VERSION=3.7
-ARG DEBIAN_VERSION=buster-20200803-slim
+ARG DEBIAN_VERSION=buster-20201012-slim
 
 # Download Terraform binary
 FROM debian:${DEBIAN_VERSION} as terraform
@@ -29,7 +29,7 @@ ARG PYTHON_MAJOR_VERSION
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends python3=${PYTHON_MAJOR_VERSION}.3-1
 RUN apt-get install -y --no-install-recommends python3-pip=18.1-5
-RUN pip3 install setuptools==49.6.0
+RUN pip3 install setuptools==50.3.2
 RUN pip3 install awscli==${AWS_CLI_VERSION}
 
 # Build final image
