@@ -26,9 +26,9 @@ commandTests:
   - name: "Check Terraform CLI version"
     command: "terraform"
     args: ["version"]
-    expectedOutput: ["Terraform v0.13.1"]
+    expectedOutput: ["Terraform v0.13.5"]
 
   - name: "Check AWS CLI version"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/1.18.127"]
+    expectedOutput: ["aws-cli/1.18.166"]
