@@ -14,8 +14,10 @@ on:
       - "!CODE_OF_CONDUCT.md.md"
 
 env:
-  ORGANIZATION: "zenika"
-  IMAGE_NAME: "terraform-aws-cli"
+  # ORGANIZATION: "zenika"
+  # IMAGE_NAME: "terraform-aws-cli"
+  ORGANIZATION: "kstephens"
+  IMAGE_NAME: "nonroot-user"
 
 jobs:
   lint:
