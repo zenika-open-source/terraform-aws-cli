@@ -32,14 +32,3 @@ commandTests:
     command: "aws"
     args: ["--version"]
     expectedOutput: ["aws-cli/1.18.166"]
-
-userTests:
-  - name: "Check current user"
-    command: "id"
-    args: ["-u"]
-    expectedOutput: ["65500"]
-
-  - name: "Check current user group"
-    command: "id"
-    args: ["-g"]
-    expectedOutput: ["65500"]
