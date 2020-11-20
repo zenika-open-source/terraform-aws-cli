@@ -14,10 +14,8 @@ on:
       - "!CODE_OF_CONDUCT.md.md"
 
 env:
-  # ORGANIZATION: "zenika"
-  # IMAGE_NAME: "terraform-aws-cli"
-  ORGANIZATION: "kstephens"
-  IMAGE_NAME: "nonroot-user"
+  ORGANIZATION: "zenika"
+  IMAGE_NAME: "terraform-aws-cli"
 
 jobs:
   lint:
@@ -42,7 +40,6 @@ jobs:
 
       - name: Save branch name as env var
         run: echo "BRANCH=${GITHUB_REF##*/}" >> $GITHUB_ENV
-        # run: echo "::set-env name=BRANCH::${GITHUB_REF##*/}"
 
       - name: Build image
         run: docker image build . --file Dockerfile --tag $ORGANIZATION/$IMAGE_NAME:$BRANCH
@@ -66,7 +63,6 @@ jobs:
 
       - name: Save branch name as env var
         run: echo "BRANCH=${GITHUB_REF##*/}" >> $GITHUB_ENV
-        # run: echo "::set-env name=BRANCH::${GITHUB_REF##*/}"
 
       - name: Download image artifact
         uses: actions/download-artifact@v2
