@@ -49,5 +49,11 @@ COPY --from=terraform /terraform /usr/local/bin/terraform
 COPY --from=aws-cli /usr/local/bin/aws* /usr/local/bin/
 COPY --from=aws-cli /usr/local/lib/python${PYTHON_MAJOR_VERSION}/dist-packages /usr/local/lib/python${PYTHON_MAJOR_VERSION}/dist-packages
 COPY --from=aws-cli /usr/lib/python3/dist-packages /usr/lib/python3/dist-packages
+
 WORKDIR /workspace
+RUN groupadd -g 65500 nonroot \
+  && useradd -g nonroot -m -u 65500 nonroot \
+  && chown nonroot:nonroot /workspace
+
+USER nonroot
 CMD ["bash"]
