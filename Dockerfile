@@ -51,8 +51,8 @@ COPY --from=aws-cli /usr/local/lib/python${PYTHON_MAJOR_VERSION}/dist-packages /
 COPY --from=aws-cli /usr/lib/python3/dist-packages /usr/lib/python3/dist-packages
 
 WORKDIR /workspace
-RUN groupadd -g 65500 nonroot \
-  && useradd -g nonroot -m -u 65500 nonroot \
+RUN groupadd -g 1001 nonroot \
+  && useradd -g nonroot -m -u 1001 nonroot \
   && chown nonroot:nonroot /workspace
 
 USER nonroot
