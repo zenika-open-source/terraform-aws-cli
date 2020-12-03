@@ -39,7 +39,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Save branch name as env var
-        run: echo "::set-env name=BRANCH::${GITHUB_REF##*/}"
+        run: echo "BRANCH=${GITHUB_REF##*/}" >> $GITHUB_ENV
 
       - name: Build image
         run: docker image build . --file Dockerfile --tag $ORGANIZATION/$IMAGE_NAME:$BRANCH
@@ -62,7 +62,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: Save branch name as env var
-        run: echo "::set-env name=BRANCH::${GITHUB_REF##*/}"
+        run: echo "BRANCH=${GITHUB_REF##*/}" >> $GITHUB_ENV
 
       - name: Download image artifact
         uses: actions/download-artifact@v2
