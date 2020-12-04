@@ -73,8 +73,8 @@ Optionally, it is possible to choose the tools desired versions using [Docker bu
 
 ```bash
 # Set tools desired versions
-AWS_CLI_VERSION=1.18.166
-TERRAFORM_VERSION=0.13.5
+AWS_CLI_VERSION=1.18.189
+TERRAFORM_VERSION=0.14.0
 
 # launch the build script with parameters
 ./dev-build.sh $AWS_CLI_VERSION $TERRAFORM_VERSION
