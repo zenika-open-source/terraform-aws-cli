@@ -26,12 +26,12 @@ commandTests:
   - name: "Check Terraform CLI version"
     command: "terraform"
     args: ["version"]
-    expectedOutput: ["Terraform v0.13.5"]
+    expectedOutput: ["Terraform v0.14.0"]
 
   - name: "Check AWS CLI version"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/1.18.166"]
+    expectedOutput: ["aws-cli/1.18.189"]
 
 fileExistenceTests:
   - name: 'Check nonroot user home'
