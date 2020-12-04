@@ -51,9 +51,10 @@ COPY --from=aws-cli /usr/local/lib/python${PYTHON_MAJOR_VERSION}/dist-packages /
 COPY --from=aws-cli /usr/lib/python3/dist-packages /usr/lib/python3/dist-packages
 
 WORKDIR /workspace
-RUN groupadd -g 1001 nonroot \
-  && useradd -g nonroot -m -u 1001 nonroot \
+RUN groupadd --gid 1001 nonroot \
+  # user needs a home folder to store aws credentials
+  && useradd --gid nonroot --create-home --uid 1001 nonroot \
   && chown nonroot:nonroot /workspace
-
 USER nonroot
+
 CMD ["bash"]
