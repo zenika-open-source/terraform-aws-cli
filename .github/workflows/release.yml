@@ -42,10 +42,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Get and save the release tag
-        run: echo "::set-env name=RELEASE_TAG::${GITHUB_REF##*/}"
+        run: echo "RELEASE_TAG=${GITHUB_REF##*/}" >> $GITHUB_ENV
 
       - name: Build and save the image release tag
-        run: echo "::set-env name=IMAGE_TAG::release-${RELEASE_TAG}_terraform-${{ matrix.tf_version }}_awscli-${{ matrix.awscli_version }}"
+        run: echo "IMAGE_TAG=release-${RELEASE_TAG}_terraform-${{ matrix.tf_version }}_awscli-${{ matrix.awscli_version }}" >> $GITHUB_ENV
 
       - name: Build image
         run: docker image build . --file Dockerfile --build-arg TERRAFORM_VERSION=${{ matrix.tf_version }} --build-arg AWS_CLI_VERSION=${{ matrix.awscli_version }} --tag ${ORGANIZATION}/${IMAGE_NAME}:${IMAGE_TAG}
