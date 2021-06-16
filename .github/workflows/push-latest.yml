@@ -20,7 +20,6 @@ env:
   IMAGE_TAG: "latest"
 
 jobs:
-
   build_push_latest:
     runs-on: ubuntu-20.04
 
