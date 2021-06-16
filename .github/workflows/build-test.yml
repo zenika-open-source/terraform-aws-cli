@@ -66,8 +66,8 @@ jobs:
       - name: Upload image artifact
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.IMAGE_NAME }}-${{ env.IMAGE_TAG }}
-          path: ${{ env.IMAGE_NAME }}-${{ env.IMAGE_TAG }}.tar
+          name: ${{ env.IMAGE_NAME }}_${{ env.IMAGE_TAG }}
+          path: ${{ env.IMAGE_NAME }}_${{ env.IMAGE_TAG }}.tar
 
   test:
     runs-on: ubuntu-20.04
@@ -90,10 +90,10 @@ jobs:
       - name: Download image artifact
         uses: actions/download-artifact@v2
         with:
-          name: ${{ env.IMAGE_NAME }}-${{ env.IMAGE_TAG }}
+          name: ${{ env.IMAGE_NAME }}_${{ env.IMAGE_TAG }}
 
       - name: Load image
-        run: docker image load --input ${{ env.IMAGE_NAME }}-${{ env.IMAGE_TAG }}.tar
+        run: docker image load --input ${{ env.IMAGE_NAME }}_${{ env.IMAGE_TAG }}.tar
 
       - name: Generate test config
         run: |
