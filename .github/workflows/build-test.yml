@@ -58,7 +58,7 @@ jobs:
         run: echo "IMAGE_TAG=${BRANCH}_terraform-${{ matrix.tf_version }}_awscli-${{ matrix.awscli_version }}" >> $GITHUB_ENV
 
       - name: Build image
-        run: docker image build . --file Dockerfile --build-arg TERRAFORM_VERSION=${{ matrix.tf_version }} --build-arg AAWS_CLI_VERSION=${{ matrix.awscli_version }} --tag ${IMAGE_NAME}:${IMAGE_TAG}
+        run: docker image build . --file Dockerfile --build-arg TERRAFORM_VERSION=${{ matrix.tf_version }} --build-arg AWS_CLI_VERSION=${{ matrix.awscli_version }} --tag ${IMAGE_NAME}:${IMAGE_TAG}
 
       - name: Save image
         run: docker image save --output ${IMAGE_NAME}_${IMAGE_TAG}.tar ${IMAGE_NAME}:${IMAGE_TAG}
