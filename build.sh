@@ -5,7 +5,7 @@ set -eo pipefail
 # FIXME: use getopts function to parse aguments
 # FIXME: if provided, both TF and AWS CLI semvers should be regex-validated
 
-# Set AZ and TF CLI to latest supported versions if not specified
+# Set AWS and TF CLI to latest supported versions if not specified
 [[ -n $1 ]] && AWS_VERSION=$1 || AWS_VERSION=$(jq -r '.awscli_version | sort | .[-1]' supported_versions.json)
 [[ -n $2 ]] && TF_VERSION=$2 || TF_VERSION=$(jq -r '.tf_version | sort | .[-1]' supported_versions.json)
 
