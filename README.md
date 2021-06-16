@@ -1,6 +1,8 @@
-[![lint-build-test](https://github.com/Zenika/terraform-aws-cli/workflows/lint-build-test/badge.svg)](https://github.com/Zenika/terraform-aws-cli/actions?query=workflow%3Alint-build-test)
+[![lint-dockerfile](https://github.com/Zenika/terraform-aws-cli/workflows/lint-dockerfile/badge.svg)](https://github.com/Zenika/terraform-aws-cli/actions?query=workflow%3Alint-dockerfile)
+[![build-test](https://github.com/Zenika/terraform-aws-cli/workflows/build-test/badge.svg)](https://github.com/Zenika/terraform-aws-cli/actions?query=workflow%3Abuild-test)
 [![push-latest](https://github.com/Zenika/terraform-aws-cli/workflows/push-latest/badge.svg)](https://github.com/Zenika/terraform-aws-cli/actions?query=workflow%3Apush-latest)
 [![release](https://github.com/Zenika/terraform-aws-cli/workflows/release/badge.svg)](https://github.com/Zenika/terraform-aws-cli/actions?query=workflow%3Arelease)
+[![dockerhub-description](https://github.com/Zenika/terraform-aws-cli/workflows/dockerhub-description/badge.svg)](https://github.com/Zenika/terraform-aws-cli/actions?query=workflow%3Adockerhub-description)
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Docker Pulls](https://img.shields.io/docker/pulls/zenika/terraform-aws-cli.svg)](https://hub.docker.com/r/zenika/terraform-aws-cli/)
@@ -10,15 +12,19 @@
 ## 📦 Supported tags and respective Dockerfile links
 Available image tags can be found on the Docker Hub registry: [zenika/terraform-aws-cli](https://hub.docker.com/r/zenika/terraform-aws-cli/tags)
 
+Supported versions are listed in the [`supported_versions.json`](https://github.com/Zenika/terraform-aws-cli/blob/master/supported_versions.json) file in project root folder.
+
 The following image tag strategy is applied:
 * `zenika/terraform-aws-cli:latest` - build from master
-  * Included CLI versions can be found in the [Dockerfile](https://github.com/Zenika/terraform-aws-cli/blob/master/Dockerfile)
+  * Included CLI versions are the newest in the [`supported_versions.json` ](https://github.com/Zenika/terraform-aws-cli/blob/master/supported_versions.json) file.<>
 * `zenika/terraform-aws-cli:release-S.T_terraform-UU.VV.WW_awscli-XX.YY.ZZ` - build from releases
   * `release-S.T` is the release tag
   * `terraform-UU.VV.WWW` is the Terraform version included in the image
   * `awscli-XX.YY.ZZ` is the AWS CLI version included in the image
 
-Please report to the [releases page](https://github.com/Zenika/terraform-aws-cli/releases) for the changelogs. Any other tags are not supported.
+Please report to the [releases page](https://github.com/Zenika/terraform-aws-cli/releases) for the changelogs.
+
+> Any other tags are not supported even if available.
 
 ## 💡 Motivation
 The goal is to create a **minimalist** and **lightweight** image with these tools in order to reduce network and storage impact.
@@ -30,19 +36,18 @@ Tools included:
 
 * [AWS CLI](https://aws.amazon.com/fr/cli/)
   * Included version indicated in the image tag: `awscli-XX.YY.ZZ`
-  * See available version on the [project release page](https://github.com/aws/aws-cli/releases)
 * [Terraform CLI](https://www.terraform.io/docs/commands/index.html)
   * Included version indicated in the image tag: `terraform-XX.YY.ZZ`
   * See available versions on the [project release page](https://github.com/hashicorp/terraform/releases)
 * [Git](https://git-scm.com/) for Terraform remote module usage, see available versions on the [Debian Packages repository](https://packages.debian.org/search?suite=buster&arch=any&searchon=names&keywords=git)
+* [Python 3](https://www.python.org/)
 * [jq](https://stedolan.github.io/jq/) to process JSON returned by AWS, see available versions on the [Debian Packages repository](https://packages.debian.org/search?suite=buster&arch=any&searchon=names&keywords=jq)
-
-This image uses a non-root user with a UID and GID of 1001 to conform with docker security best practices.
+* This image uses a non-root user with a UID and GID of 1001 to conform with docker security best practices.
 
 ## 🚀 Usage
 
 ### 🐚 Launch the CLI
-Set your AWS credentials (optional) and launch the container, for instance using the latest image:
+Set your AWS credentials (optional) and use the CLI as you would on any other platform, for instance using the latest image:
 
 ```bash
 echo AWS_ACCESS_KEY_ID=YOUR_ACCESS_KEY
@@ -64,12 +69,10 @@ It will :
 
 ```bash
 # launch build script
-./dev-build.sh
+./build.sh
 ```
 
-Optionally, it is possible to choose the tools desired versions using [Docker builds arguments](https://docs.docker.com/engine/reference/commandline/build/#set-build-time-variables---build-arg):
-
-> Be aware that tests will fail and should be updated if you choose different CLI versions.
+Optionally, it is possible to choose the tools desired versions :
 
 ```bash
 # Set tools desired versions
@@ -77,11 +80,37 @@ AWS_CLI_VERSION=1.18.189
 TERRAFORM_VERSION=0.14.0
 
 # launch the build script with parameters
-./dev-build.sh $AWS_CLI_VERSION $TERRAFORM_VERSION
+./build.sh $AWS_CLI_VERSION $TERRAFORM_VERSION
 ```
 
 ## 🙏 Contributions
 Do not hesitate to contribute by [filling an issue](https://github.com/Zenika/terraform-aws-cli/issues) or [a PR](https://github.com/Zenika/terraform-aws-cli/pulls) !
+
+## ⬆️ Dependencies upgrades checklist
+
+* Supported versions:
+  * check AWS CLI version, available on the [project release page](https://github.com/aws/aws-cli/releases)
+  * check Terraform CLI version (keep all minor versions from 0.11), available on the [project release page](https://github.com/hashicorp/terraform/releases)
+* Dockerfile:
+  * check base image version on DockerHub
+  * check OS package versions on Debian package repository
+    * Available Git versions on the [Debian Packages repository](https://packages.debian.org/search?suite=buster&arch=any&searchon=names&keywords=git)
+    * Available Python versions on the [Debian packages repository](https://packages.debian.org/search?suite=buster&arch=any&searchon=names&keywords=python3)
+    * same process for all other packages
+  * check Pip package versions on [pypi](https://pypi.org/)
+* Github actions:
+  * check [runner version](https://github.com/actions/virtual-environments#available-environments)
+  * check each action release versions
+* Build scripts:
+  * check container tags:
+    * [Hadolint releases](https://github.com/hadolint/hadolint/releases)
+    * [Container-structure-test](https://github.com/GoogleContainerTools/container-structure-test/releases)
+* Readme:
+  * update version in code exemples
+
+## 🚩 Similar repositories
+
+* For Azure: [zenika-open-source/terraform-azure-cli](https://github.com/zenika-open-source/terraform-azure-cli)
 
 ## 📖 License
 This project is under the [Apache License 2.0](https://raw.githubusercontent.com/Zenika/terraform-aws-cli/master/LICENSE)
