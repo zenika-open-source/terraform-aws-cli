@@ -1,0 +1,29 @@
+name: lint-dockerfile
+
+# trigger on any push
+# but not on master or tags
+# and only for dockerfile modifications
+on:
+  push:
+    # tags-ignore:
+    #   - "**"
+    # branches:
+    #   - "**"
+    #   - "!master"
+    # paths:
+    #   - "Dockerfile"
+    #   - ".github/workflows/lint-dockerfile.yml"
+
+jobs:
+  lint:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+
+      - name: Lint Dockerfile
+        uses: brpaz/hadolint-action@v1.5.0
+        with:
+          dockerfile: "Dockerfile"
+          config: "hadolint.yaml"
