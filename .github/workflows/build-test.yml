@@ -5,18 +5,18 @@ name: build-test
 # and only for dockerfile-related modifications
 on:
   push:
-    # tags-ignore:
-    #   - "**"
-    # branches:
-    #   - "**"
-    #   - "!master"
-    # paths:
-    #   - "Dockerfile"
-    #   - "supported_versions.json"
-    #   - "hashicorp.asc"
-    #   - "tests/*"
-    #   - ".dockerignore"
-    #   - ".github/workflows/build-test.yml"
+    tags-ignore:
+      - "**"
+    branches:
+      - "**"
+      - "!master"
+    paths:
+      - "Dockerfile"
+      - "supported_versions.json"
+      - "hashicorp.asc"
+      - "tests/*"
+      - ".dockerignore"
+      - ".github/workflows/build-test.yml"
 
 env:
   IMAGE_NAME: "terraform-aws-cli"

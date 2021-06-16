@@ -5,14 +5,14 @@ name: lint-dockerfile
 # and only for dockerfile modifications
 on:
   push:
-    # tags-ignore:
-    #   - "**"
-    # branches:
-    #   - "**"
-    #   - "!master"
-    # paths:
-    #   - "Dockerfile"
-    #   - ".github/workflows/lint-dockerfile.yml"
+    tags-ignore:
+      - "**"
+    branches:
+      - "**"
+      - "!master"
+    paths:
+      - "Dockerfile"
+      - ".github/workflows/lint-dockerfile.yml"
 
 jobs:
   lint:
