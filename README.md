@@ -1,8 +1,8 @@
-[![lint-dockerfile](https://github.com/Zenika/terraform-aws-cli/workflows/lint-dockerfile/badge.svg)](https://github.com/Zenika/terraform-aws-cli/actions?query=workflow%3Alint-dockerfile)
-[![build-test](https://github.com/Zenika/terraform-aws-cli/workflows/build-test/badge.svg)](https://github.com/Zenika/terraform-aws-cli/actions?query=workflow%3Abuild-test)
-[![push-latest](https://github.com/Zenika/terraform-aws-cli/workflows/push-latest/badge.svg)](https://github.com/Zenika/terraform-aws-cli/actions?query=workflow%3Apush-latest)
-[![release](https://github.com/Zenika/terraform-aws-cli/workflows/release/badge.svg)](https://github.com/Zenika/terraform-aws-cli/actions?query=workflow%3Arelease)
-[![dockerhub-description](https://github.com/Zenika/terraform-aws-cli/workflows/dockerhub-description/badge.svg)](https://github.com/Zenika/terraform-aws-cli/actions?query=workflow%3Adockerhub-description)
+[![lint-dockerfile](https://github.com/zenika-open-source/terraform-aws-cli/actions/workflows/lint-dockerfile.yml/badge.svg)](https://github.com/zenika-open-source/terraform-aws-cli/actions/workflows/lint-dockerfile.yml)
+[![build-test](https://github.com/zenika-open-source/terraform-aws-cli/actions/workflows/build-test.yml/badge.svg)](https://github.com/zenika-open-source/terraform-aws-cli/actions/workflows/build-test.yml)
+[![push-latest](https://github.com/zenika-open-source/terraform-aws-cli/actions/workflows/push-latest.yml/badge.svg)](https://github.com/zenika-open-source/terraform-aws-cli/actions/workflows/push-latest.yml)
+[![release](https://github.com/zenika-open-source/terraform-aws-cli/actions/workflows/release.yml/badge.svg)](https://github.com/zenika-open-source/terraform-aws-cli/actions/workflows/release.yml)
+[![dockerhub-description-update](https://github.com/zenika-open-source/terraform-aws-cli/actions/workflows/dockerhub-description-update.yml/badge.svg)](https://github.com/zenika-open-source/terraform-aws-cli/actions/workflows/dockerhub-description-update.yml)
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Docker Pulls](https://img.shields.io/docker/pulls/zenika/terraform-aws-cli.svg)](https://hub.docker.com/r/zenika/terraform-aws-cli/)
