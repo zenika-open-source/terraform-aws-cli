@@ -93,7 +93,7 @@ jobs:
           name: ${{ env.IMAGE_NAME }}-${{ env.IMAGE_TAG }}
 
       - name: Load image
-        run: docker image load --input ${{ env.IMAGE_NAME }}_${{ env.IMAGE_TAG }}.tar
+        run: docker image load --input ${{ env.IMAGE_NAME }}-${{ env.IMAGE_TAG }}.tar
 
       - name: Generate test config
         run: |
