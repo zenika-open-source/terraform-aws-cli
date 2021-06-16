@@ -2,7 +2,6 @@ name: release
 
 # trigger on published release
 on:
-  push:
   release:
     types: [published]
 
