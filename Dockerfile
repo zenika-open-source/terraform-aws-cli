@@ -1,17 +1,18 @@
 # Setup build arguments with default versions
-ARG AWS_CLI_VERSION=1.18.189
-ARG TERRAFORM_VERSION=0.14.0
+ARG AWS_CLI_VERSION
+ARG TERRAFORM_VERSION
 ARG PYTHON_MAJOR_VERSION=3.7
-ARG DEBIAN_VERSION=buster-20201012-slim
+ARG DEBIAN_VERSION=buster-20210511-slim
 
 # Download Terraform binary
 FROM debian:${DEBIAN_VERSION} as terraform
 ARG TERRAFORM_VERSION
 RUN apt-get update
-RUN apt-get install --no-install-recommends -y curl=7.64.0-4+deb10u1
-RUN apt-get install --no-install-recommends -y ca-certificates=20190110
-RUN apt-get install --no-install-recommends -y unzip=6.0-23+deb10u1
+RUN apt-get install --no-install-recommends -y curl=7.64.0-4+deb10u2
+RUN apt-get install --no-install-recommends -y ca-certificates=20200601~deb10u2
+RUN apt-get install --no-install-recommends -y unzip=6.0-23+deb10u2
 RUN apt-get install --no-install-recommends -y gnupg=2.2.12-1+deb10u1
+WORKDIR /workspace
 RUN curl -Os https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_SHA256SUMS
 RUN curl -Os https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
 RUN curl -Os https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_SHA256SUMS.sig
@@ -29,8 +30,8 @@ ARG PYTHON_MAJOR_VERSION
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends python3=${PYTHON_MAJOR_VERSION}.3-1
 RUN apt-get install -y --no-install-recommends python3-pip=18.1-5
-RUN pip3 install setuptools==50.3.2
-RUN pip3 install awscli==${AWS_CLI_VERSION}
+RUN pip3 install --no-cache-dir setuptools==57.0.0
+RUN pip3 install --no-cache-dir awscli==${AWS_CLI_VERSION}
 
 # Build final image
 FROM debian:${DEBIAN_VERSION}
@@ -38,19 +39,19 @@ LABEL maintainer="bgauduch@github"
 ARG PYTHON_MAJOR_VERSION
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
-    ca-certificates=20190110 \
+    ca-certificates=20200601~deb10u2 \
     git=1:2.20.1-2+deb10u3 \
     jq=1.5+dfsg-2+b1 \
     python3=${PYTHON_MAJOR_VERSION}.3-1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && update-alternatives --install /usr/bin/python python /usr/bin/python${PYTHON_MAJOR_VERSION} 1
-COPY --from=terraform /terraform /usr/local/bin/terraform
+WORKDIR /workspace
+COPY --from=terraform /workspace/terraform /usr/local/bin/terraform
 COPY --from=aws-cli /usr/local/bin/aws* /usr/local/bin/
 COPY --from=aws-cli /usr/local/lib/python${PYTHON_MAJOR_VERSION}/dist-packages /usr/local/lib/python${PYTHON_MAJOR_VERSION}/dist-packages
 COPY --from=aws-cli /usr/lib/python3/dist-packages /usr/lib/python3/dist-packages
 
-WORKDIR /workspace
 RUN groupadd --gid 1001 nonroot \
   # user needs a home folder to store aws credentials
   && useradd --gid nonroot --create-home --uid 1001 nonroot \

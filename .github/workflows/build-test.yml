@@ -1,0 +1,108 @@
+name: build-test
+
+# trigger on any push
+# but not on master or tags
+# and only for dockerfile-related modifications
+on:
+  push:
+    tags-ignore:
+      - "**"
+    branches:
+      - "**"
+      - "!master"
+    paths:
+      - "Dockerfile"
+      - "supported_versions.json"
+      - "hashicorp.asc"
+      - "tests/*"
+      - ".dockerignore"
+      - ".github/workflows/build-test.yml"
+
+env:
+  IMAGE_NAME: "terraform-aws-cli"
+
+jobs:
+  load_supported_versions:
+    runs-on: ubuntu-20.04
+
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+
+      - name: Save supported versions as output
+        id: set-matrix
+        run: |
+          SUPPORTED_VERSIONS=$(cat ./supported_versions.json)
+          SUPPORTED_VERSIONS="${SUPPORTED_VERSIONS//'%'/%25}"
+          SUPPORTED_VERSIONS="${SUPPORTED_VERSIONS//$'\n'/%0A}"
+          SUPPORTED_VERSIONS="${SUPPORTED_VERSIONS//$'\r'/%0D}"
+          echo "::set-output name=matrix::${SUPPORTED_VERSIONS}"
+
+  build:
+    runs-on: ubuntu-20.04
+    needs: load_supported_versions
+    strategy:
+      matrix: ${{ fromJSON(needs.load_supported_versions.outputs.matrix) }}
+
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+
+      - name: Save branch name as env var
+        run: echo "BRANCH=${GITHUB_REF##*/}" >> $GITHUB_ENV
+
+      - name: Build and save image tag
+        run: echo "IMAGE_TAG=${BRANCH}_terraform-${{ matrix.tf_version }}_awscli-${{ matrix.awscli_version }}" >> $GITHUB_ENV
+
+      - name: Build image
+        run: docker image build . --file Dockerfile --build-arg TERRAFORM_VERSION=${{ matrix.tf_version }} --build-arg AWS_CLI_VERSION=${{ matrix.awscli_version }} --tag ${IMAGE_NAME}:${IMAGE_TAG}
+
+      - name: Save image
+        run: docker image save --output ${IMAGE_NAME}_${IMAGE_TAG}.tar ${IMAGE_NAME}:${IMAGE_TAG}
+
+      - name: Upload image artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ env.IMAGE_NAME }}_${{ env.IMAGE_TAG }}
+          path: ${{ env.IMAGE_NAME }}_${{ env.IMAGE_TAG }}.tar
+
+  test:
+    runs-on: ubuntu-20.04
+    needs:
+      - build
+      - load_supported_versions
+    strategy:
+      matrix: ${{ fromJSON(needs.load_supported_versions.outputs.matrix) }}
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@master
+
+      - name: Save branch name as env var
+        run: echo "BRANCH=${GITHUB_REF##*/}" >> $GITHUB_ENV
+
+      - name: Build and save image tag
+        run: echo "IMAGE_TAG=${BRANCH}_terraform-${{ matrix.tf_version }}_awscli-${{ matrix.awscli_version }}" >> $GITHUB_ENV
+
+      - name: Download image artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{ env.IMAGE_NAME }}_${{ env.IMAGE_TAG }}
+
+      - name: Load image
+        run: docker image load --input ${{ env.IMAGE_NAME }}_${{ env.IMAGE_TAG }}.tar
+
+      - name: Generate test config
+        run: |
+          export TF_VERSION=${{ matrix.tf_version }}
+          export AWS_VERSION=${{ matrix.awscli_version }}
+          envsubst '${TF_VERSION},${AWS_VERSION}' < tests/container-structure-tests.yml.template > tests/container-structure-tests.yml
+
+      - name: run structure tests
+        uses: plexsystems/container-structure-test-action@v0.2.0
+        with:
+          image: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          config: tests/container-structure-tests.yml
