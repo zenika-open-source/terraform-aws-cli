@@ -1,9 +1,2 @@
-#  Local .terraform directories
-**/.terraform/*
-
-# .tfstate files
-*.tfstate
-*.tfstate.*
-
-# .tfvars files
-*.tfvars
+# ignore generated container structure test config
+tests/container-structure-tests.yml
